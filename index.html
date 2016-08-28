@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Angular Multiselect Filter</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .filters {
+                margin: 1.25em;
+            }
+            .filters > span {
+                padding: 0.5em;
+                margin-right: 0.5em;
+                border: 1px solid;
+                border-radius: 0.25em;
+                cursor: pointer;
+            }
+            .filters > span.isActive {
+                color: red;
+            }
+        </style>
+    </head>
+    <body ng-app="msApp" ng-controller="msCtrl as vm">
+        <div class="filters">
+            <span
+             ng-class="{'isActive':vm.config.all}"
+             ng-click="vm.config.all = true; vm.config.match=[];">All</span>
+            <span
+             ng-repeat="color in vm.colors"
+             ng-class="{'isActive':vm.isSelected(vm.config, color)}"
+             ng-click="vm.select(vm.config, color)">{{::color}}</span>
+        </div>
+        <ul>
+            <li ng-repeat="card in vm.cards | msFilter:vm.config">{{::card.name}}</li>
+        </ul>
+        <script src="app.bundle.js"></script>
+    </body>
+</html>
